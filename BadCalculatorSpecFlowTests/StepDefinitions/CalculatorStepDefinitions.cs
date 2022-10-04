@@ -1,4 +1,5 @@
 using BadCalculator;
+using NUnit.Framework;
 
 namespace BadCalculatorSpecFlowTests.StepDefinitions
 {
@@ -6,18 +7,19 @@ namespace BadCalculatorSpecFlowTests.StepDefinitions
     public sealed class CalculatorStepDefinitions
     {
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
-        private readonly Form1 _calculator = new Form1();
+        private float _num1, _num2;
+        private int _count;
 
         [Given(@"the user enters the first number ""([^""]*)""")]
         public void GivenTheUserEntersTheNumber(float num)
         {
-            _calculator.setNumber1(num);
+            _num1 = num;
         }
 
         [Given(@"the user enters the second number ""([^""]*)""")]
         public void GivenTheUserEntersTheSecondNumber(float num)
         {
-            _calculator.num2 = num;
+            _num2 = num;
         }
 
 
@@ -26,23 +28,27 @@ namespace BadCalculatorSpecFlowTests.StepDefinitions
         {
             if(operation == "+")
             {
-                _calculator.count = 2;
+                _count = 2;
             }
             else if (operation == "-")
             {
-                _calculator.count = 1;
+                _count = 1;
             }
             else if (operation == "*")
             {
-                _calculator.count = 3;
+                _count = 3;
             }
             else if (operation == "/")
             {
-                _calculator.count = 4;
+                _count = 4;
             }
         }
 
-
+        [Then(@"the result should be ""([^""]*)""")]
+        public void ThenTheResultShouldBe(float res)
+        {
+            Assert.AreEqual(res, Logic.compute(_num1, _num2, _count), 0.001);
+        }
 
     }
 }

@@ -6,20 +6,30 @@ using System.Threading.Tasks;
 
 namespace BadCalculator
 {
-    internal class Logic
+    public class Logic
     {
         public static float compute(float num1, float num2, int count)
         {
-            float ans;
+            float ans = 0;
             Random rand = new Random();
-            return count switch
+            if (count == 1)
             {
-                1 => (float)(num1 - num2 - num1 * 0.1 * rand.Next(-1, 4)),
-                2 => num1 + num2,
-                3 => num1 * num2,
-                4 => num1 / num2,
-                _ => 0
-            };
+                ans = (float)(num1 - num2 - num1 * 0.1 * rand.Next(-1, 4));
+            }
+            else if(count == 2)
+            {
+                ans = num1 + num2;
+            }
+            else if (count == 3)
+            {
+                ans = num1 * num2;
+            }
+            else if (count == 4)
+            {
+                ans = num1 / num2;
+            }
+            return ans;
+            
         }
     }
 }
